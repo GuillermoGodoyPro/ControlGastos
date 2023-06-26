@@ -5,7 +5,7 @@ import Modal from './components/Modal'
 
 function App() {
   const [presupuesto, setPresupuesto] = useState(0)
-  const [ isValidPresupuesto, setIsValidPresupuesto ] = useState(true)
+  const [ isValidPresupuesto, setIsValidPresupuesto ] = useState(false)
   const [modal, setModal] = useState(false)
   const [animarModal, setAnimarModal] = useState(false)
 
