@@ -1,11 +1,14 @@
-import React from 'react'
-import CerrarBtn from '../img/cerrar.svg'
 import { useState } from 'react'
 
-const Modal = ({setModal, animarModal, setAnimarModal}) => {
+import { Mensaje } from './Mensaje'
 
+import CerrarBtn from '../img/cerrar.svg'
+
+const Modal = ({setModal, animarModal, setAnimarModal, guardarGasto}) => {
+
+    const [mensaje, setMensaje] = useState('')
     const [nombre, setNombre] = useState('')
-    const [cantidad, setCantidad] = useState()
+    const [cantidad, setCantidad] = useState('')
     const [categoria, setCategoria] = useState('')
 
     const ocultarModal = () => {
@@ -16,6 +19,35 @@ const Modal = ({setModal, animarModal, setAnimarModal}) => {
         }, 500)
     }
 
+    // Función de validación de campos, que no queden vacíos
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        if([ nombre, cantidad, categoria ].includes('') || cantidad === 0){
+            
+            setTimeout(() => {
+                setMensaje('Todos los campos son obligatorios')                
+            }, 500)
+            
+            setTimeout(() => {
+                setMensaje('')                
+            }, 3500)           
+
+            return;
+        }
+
+        guardarGasto(
+            {
+                // tener en cuenta que c/u es = a nombre = nombre/ cantidad = cantidad / categoria = categoria
+                nombre,
+                cantidad,
+                categoria
+            }
+        )
+
+    }
+
+    
     
     return (
         <div className="modal">
@@ -27,8 +59,13 @@ const Modal = ({setModal, animarModal, setAnimarModal}) => {
                 />
             </div>
 
-            <form className={`formulario ${animarModal ? "animar" : 'cerrar'}`}>
+            <form
+                onSubmit={handleSubmit}
+                className={`formulario ${animarModal ? "animar" : 'cerrar'}`}
+            >
                 <legend>Nuevo Gasto</legend>
+                {mensaje && <Mensaje tipo="error">{mensaje}</Mensaje>}
+
 
                 <div className="campo">
                     <label htmlFor="nombre">Nombre Gasto</label>
