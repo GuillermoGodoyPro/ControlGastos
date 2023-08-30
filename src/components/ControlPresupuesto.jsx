@@ -1,9 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export const ControlPresupuesto = ({gastos, presupuesto}) => {
 
+
+    const [disponible, setDisponible] = useState(0)
+    const [gastado, setGastado] = useState(0)
+
     useEffect(()=>{
-       console.log("componente listo")
+       const totalGastado = gastos.reduce( (total, gasto ) => gasto.cantidad + total, 0)
+
+       setGastado(totalGastado)
     }, [gastos])
     
     const formatearCantidad = ( cantidad ) => {
@@ -25,11 +31,11 @@ export const ControlPresupuesto = ({gastos, presupuesto}) => {
                 </p>
 
                 <p>
-                    <span>Disponible: </span>  {formatearCantidad(0)}
+                    <span>Disponible: </span>  {formatearCantidad(disponible)}
                 </p>
 
                 <p>
-                    <span>Gastado: </span>  {formatearCantidad(0)}
+                    <span>Gastado: </span>  {formatearCantidad(gastado)}
                 </p>
             </div>
         </div>
