@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 export const ControlPresupuesto = ({gastos, presupuesto}) => {
 
-
+    
     const [disponible, setDisponible] = useState(0)
     const [gastado, setGastado] = useState(0)
 
